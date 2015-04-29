@@ -130,6 +130,7 @@ screens = [
         top=bar.Bar(
             widgets = [
                 widget.GroupBox(active = "#000000", inactive = "#aaaaaa", this_current_screen_border = "e39c19", highlight_method = "block"),
+                widget.Sep(padding = 9, foreground = "#333333", height_percent = 60),
                 widget.Prompt(foreground = "#e39c19", background = "#111111"),
                 widget.WindowName(foreground = "#000000"),
                 widget.Systray(foreground = "#000000"),
