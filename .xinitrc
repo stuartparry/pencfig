@@ -1,9 +1,15 @@
 !/bin/bash
 
+echo $1 > /home/stuart/which_de
+
 ### Set directory for extra fonts to be used by X ###
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
+### Turn off the insanely annoying system beep
+xset -b
+
+### DE specific setup
 if [ "$1" == "openbox-session" ]; then
   export BROWSER=firefox
   export DE=openbox
@@ -46,7 +52,9 @@ elif [ "$1" == "qtile" ]; then
   export DE=qtile
 fi
 
+### General startup config
 xbacklight -set 40 &
 nitrogen --restore &
+
 exec $1
-udiskie &...
+#udiskie &...
