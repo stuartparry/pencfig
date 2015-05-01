@@ -115,8 +115,8 @@ for i in groups:
 
 layouts = [ 
     layout.Max(),
-    layout.Stack(num_stacks=2, border_focus = "#e39c19", border_normal = "#000000", border_width = 1),
-    layout.MonadTall(border_focus = "#e39c19", border_normal = "#000000", border_width = 1, ratio = 0.6)
+    layout.Stack(num_stacks=2, border_focus = "#b5842a", border_normal = "#000000", border_width = 1),
+    layout.MonadTall(border_focus = "#b5842a", border_normal = "#000000", border_width = 1, ratio = 0.6)
 ]
 
 widget_defaults = dict(
@@ -129,18 +129,18 @@ screens = [
     Screen(
         top=bar.Bar(
             widgets = [
-                widget.GroupBox(active = "#000000", inactive = "#aaaaaa", this_current_screen_border = "e39c19", highlight_method = "block"),
-                widget.Sep(padding = 9, foreground = "#333333", height_percent = 60),
-                widget.Prompt(foreground = "#e39c19", background = "#111111"),
-                widget.WindowName(foreground = "#000000"),
-                widget.Systray(foreground = "#000000"),
-                widget.Sep(padding = 9, foreground = "#333333", height_percent = 60),
-                widget.Battery(battery_name='BAT1', foreground = "#000000", hide_threshold=None, charge_char = '+', discharge_char = '-'),
-                widget.Sep(padding = 9, foreground = "#333333", height_percent = 60),
-                widget.Clock(format='%a %d-%m-%Y %H:%M', foreground = "#000000"),
+                widget.GroupBox(active = "#000000", inactive = "#aaaaaa", this_current_screen_border = "e39c19", this_screen_border = "ic48716", other_screen_border = "#806d46", highlight_method = "block"),
+                widget.Sep(padding = 9, foreground = "#444444", height_percent = 60),
+                widget.Prompt(foreground = "#bbbbbb", background = "#272727"),
+                widget.WindowName(foreground = "#b5842a"),
+                widget.Systray(foreground = "#8f8a83"),
+                widget.Sep(padding = 9, foreground = "#444444", height_percent = 60),
+                widget.Battery(battery_name='BAT1', foreground = "#8f8a83", hide_threshold=None, charge_char = '+', discharge_char = '-'),
+                widget.Sep(padding = 9, foreground = "#444444", height_percent = 60),
+                widget.Clock(format='%a %d-%m-%Y %H:%M', foreground = "#8f8a83"),
             ],
             size = 18,
-            background = "#8f8a83",
+            background = "#111111",
         ),
     ),
 ]
