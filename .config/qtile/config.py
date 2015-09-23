@@ -1,6 +1,6 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget
+from libqtile import layout, bar, widget, hook
 
 mod = "mod4"
 
@@ -22,6 +22,7 @@ keys = [
         [mod], "l",
         lazy.layout.right()
     ),
+    # Move windows in current stack
     Key(
         [mod, "shift"], "k",
         lazy.layout.shuffle_up()
@@ -51,16 +52,6 @@ keys = [
     Key(
         [mod], "o", lazy.layout.maximize()
     ),
-    # Move windows up or down in current stack
-    Key(
-        [mod, "control"], "k",
-        lazy.layout.shuffle_down()
-    ),
-    Key(
-        [mod, "control"], "j",
-        lazy.layout.shuffle_up()
-    ),
-
     # Switch window focus to other pane(s) of stack
     Key(
         [mod], "space",
@@ -84,7 +75,7 @@ keys = [
     Key([mod], "Return", lazy.spawn("urxvt")),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.nextlayout()),
+    Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
 
     Key([mod, "control"], "r", lazy.restart()),
@@ -101,7 +92,7 @@ keys = [
 
 groups = [Group(i) for i in "123456789"]
 
- 
+
 for i in groups:
     # mod1 + letter of group = switch to group
     keys.append(
@@ -113,10 +104,10 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name))
     )
 
-layouts = [ 
-    layout.Max(),
-    layout.Stack(num_stacks=2, border_focus = "#b5842a", border_normal = "#000000", border_width = 1),
-    layout.MonadTall(border_focus = "#b5842a", border_normal = "#000000", border_width = 1, ratio = 0.6)
+layouts = [
+    layout.max.Max(),
+    layout.stack.Stack(num_stacks=2, border_focus = "#b5842a", border_normal = "#000000", border_width = 1),
+    layout.xmonad.MonadTall(border_focus = "#b5842a", border_normal = "#000000", border_width = 1, ratio = 0.6)
 ]
 
 widget_defaults = dict(
@@ -134,6 +125,8 @@ screens = [
                 widget.Prompt(foreground = "#bbbbbb", background = "#272727"),
                 widget.WindowName(foreground = "#b5842a"),
                 widget.Systray(foreground = "#8f8a83"),
+                widget.Sep(padding = 9, foreground = "#444444", height_percent = 60),
+                widget.CurrentLayout(foreground = "#444444"),
                 widget.Sep(padding = 9, foreground = "#444444", height_percent = 60),
                 widget.Battery(battery_name='BAT1', foreground = "#8f8a83", hide_threshold=None, charge_char = '+', discharge_char = '-'),
                 widget.Sep(padding = 9, foreground = "#444444", height_percent = 60),
@@ -160,8 +153,14 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating()
+floating_layout = layout.floating.Floating()
 auto_fullscreen = True
+
+# Fix cursor
+@hook.subscribe.startup
+def runner():
+    import subprocess
+    subprocess.Popen(['xsetroot', '-cursor_name', 'left_ptr'])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
