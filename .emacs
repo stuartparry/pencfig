@@ -1,111 +1,88 @@
-(package-initialize)
+;;;-*-Emacs-Lisp-*-
 
-;; Custom variables
-;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (darkburn)))
- '(custom-safe-themes
-   (quote
-    ("c3e567dedaa800e869d879c4df8478237d6ea31fd04464086fd674c864fe4d71" "ad9fc392386f4859d28fe4ef3803585b51557838dbc072762117adad37e83585" default)))
- '(menu-bar-mode nil)
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.org/packages/"))))
- '(menu-bar-mode nil)
- '(scroll-bar-mode nil)
- '(tool-bar-mode nil))
+;;; Commentary:
+;;;
+;;;
 
-;; Faces
-;;
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#111111" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
+;;; Code:
 
-;; General config
+;; This must come before configuration on installed packages. DO NOT REMOVE
+( package-initialize)
+
+
+;; Search paths
 ;;
-;; Tabs
-(setq-default c-basic-offset 8)
-(setq-default tab-width 8)
-(setq-default indent-tabs-mode nil)
-;; Buffers/Files
-(setq-default truncate-lines t)
-(setq scroll-margin 5
-      scroll-conservatively 9999
-      scroll-step 1)
-;; Enable disabled commands
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+
+
+;; The basic essentials
+;;
+
+; Enable disabled commands
 (put 'downcase-region 'disabled nil)
-;; Parentheses
-(show-paren-mode t)
-;; Do not move cursor when moving from insert to normal
-(setq evil-move-cursor-back nil)
+; Suppress annoying advice redefinition warnings
+(setq ad-redefinition-action 'accept)
+; Remove uneccessary and annoying startup cludge
+(setq inhibit-splash-screen t
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t)
+; Don't need space consuming menus, scroll and tool bars
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+; Visually indicate matching parenthese;
+(show-paren-mode 1)
+; Text wraps at word boundaries and curly arrows are used to indicate continuation
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+; Turn off build-in version control support
+(eval-after-load "vc" '(setq vc-handled-backends nil))
+; Turn off visible bell
+(setq visible-bell nil)
+; Do NOT use tabs for indentation globally - TABS ARE EVIL!!!
+(setq-default indent-tabs-mode nil)
+; Set tab width to 4
+(setq-default tab-width 4)
+(setq-default c-basic-offset 4)
+(setq-default cperl-indent-level 4)
+;set font size
+(set-face-attribute 'default nil :height 90)
+; Custom customizations file
+(setq custom-file "~/.emacs.d/emacs-custom.el")
+(load custom-file)
+; Sort out default crappy 'half screen jump' scrolling - almost
+(setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
+; Sanely produce backups/autosaves in a single directory
+(setq backup-directory-alist '((".*" . "~/.emacs_saves"))):
+(setq auto-save-file-name-transforms '((".*" "~/.emacs_saves" t)))
+(setq backup-by-copying t
+      delete-old-versions t
+      kept-new-versoins 6
+      kept-old-versions 2
+      version-control2)
+; Use hunspell for spellchecking
+(setq-default ispell-program-name "/usr/bin/hunspell")
+(setq-default ispell-dictionary "british")
 
-;; Powerline
+; Configuration
 ;;
-(require 'powerline)
-(powerline-default-theme)
+(require 'init-repos)
+(require 'init-theme)
+(require 'init-evil)
+(require 'init-helm)
+(require 'init-projectile)
+(require 'init-powerline)
+(require 'init-org)
+(require 'init-linum)
+(require 'init-yasnippet)
+(require 'init-autocomplete)
+(require 'init-cider)
+;(require 'init-slime)    ; No Common Lisp here!
+;(require 'init-flycheck) ; Needs more work to make this reliable
+(require 'init-magit)
+(require 'init-filetypes)
+;(require 'init-modetypes) ; Currently empty
 
-
-;; EVIL mode
-;;
-(require 'evil-leader)
-(require 'evil)
-(evil-mode 1)
-(evil-leader/set-key
-  "be" 'buffer-menu
-  "bw" 'kill-buffer)
-(evil-leader/set-leader "\"")
-(global-evil-leader-mode)
-(define-key evil-normal-state-map [escape] 'keyboard-quit)
-(define-key evil-visual-state-map [escape] 'keyboard-quit)
-(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-(setq evil-want-fine-undo t)
-
-;; ORG mode
-;;
-(require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
-(setq org-agenda-files (list "~/.orgmode/main.org"
-                             "~/.orgmode/house.org"
-                             "~/.orgmode/projects.org"
-                             "~/.orgmode/priorities.org"
-                             "~/.orgmode/sortstuff.org"))
-
-;; Verilog mode
-;;
-(setq verilog-indent-level 2
-      verilog-indent-level-module 0
-      verilog-indent-level-declaration 0
-      verilog-indent-level-declaration-macros t
-      verilog-indent-level-behavioral 2
-      verilog-indent-level-directive 2
-      verilog-case-indent 2
-      verilog-auto-newline nil
-      verilog-auto-indent-on-newline nil
-      verilog-tab-always-indent nil
-      verilog-auto-endcomments nil
-      verilog-minimum-comment-distance 40
-      verilog-indent-begin-after-if nil
-      verilog-auto-lineup nil
-      )
-
-(setq pascal-auto-lineup '(case declaration))
-
-;; Python mode
-;;
-(autoload 'python-mode "python-mode" "Python Mode." t)
-(add-to-list `auto-mode-alist `("\\.py\\'" . python-mode))
-(add-to-list `interpreter-mode-alist `("python" . python-mode))
+(provide 'emacs)
