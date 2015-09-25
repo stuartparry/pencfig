@@ -14,16 +14,14 @@
   (lambda ()
     (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eval-last-sexp)
     (turn-on-eldoc-mode)
-    (highlight-symbol-mode)
-    (flycheck-mode)))
+    (highlight-symbol-mode)))
 
 ;; Common Lisp
 (add-hook 'lisp-interaction-mode
   (lambda ()
     (define-key lisp-interaction-mode-map (kbd "<C-return>") 'eval-last-sexp)
     (turn-on-eldoc-mode)
-    (highlight-symbol-mode)
-    (flycheck-mode)))
+    (highlight-symbol-mode)))
 
 ;; Python
 (when (maybe-require-package 'python-mode)
@@ -31,8 +29,7 @@
   (add-hook 'python-mode-hook
     (lambda ()
       (helm-gtags-mode)
-      (flyspell-prog-mode)
-      (flycheck-mode))))
+      (flyspell-prog-mode))))
 
 ;; Clojure
 (when (maybe-require-package 'clojure-mode)

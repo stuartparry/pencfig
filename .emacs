@@ -65,7 +65,7 @@
       version-control2)
 ; Use hunspell for spellchecking
 (setq-default ispell-program-name "/usr/bin/hunspell")
-(setq-default ispell-dictionary "british")
+(setq-default ispell-dictionary "british") ; must set environment variable LANG to 'en_GB'
 
 ; Configuration
 ;;
