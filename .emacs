@@ -37,6 +37,7 @@
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 ; Turn off build-in version control support
 (eval-after-load "vc" '(setq vc-handled-backends nil))
+(setq vc-follow-symlinks t)
 ; Turn off visible bell
 (setq visible-bell nil)
 ; Do NOT use tabs for indentation globally - TABS ARE EVIL!!!
@@ -79,10 +80,9 @@
 (require 'init-yasnippet)
 (require 'init-autocomplete)
 (require 'init-cider)
-;(require 'init-slime)    ; No Common Lisp here!
+(require 'init-slime)    ; No Common Lisp here!
 ;(require 'init-flycheck) ; Needs more work to make this reliable
 (require 'init-magit)
 (require 'init-filetypes)
-;(require 'init-modetypes) ; Currently empty
 
 (provide 'emacs)
