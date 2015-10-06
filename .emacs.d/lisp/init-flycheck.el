@@ -1,3 +1,12 @@
+;;;-*-Emacs-Lisp-*-
+
+;;; Commentary:
+;;;
+;;;
+
+;;; Code:
+
+
 (when (maybe-require-package 'flycheck)
   (add-hook 'flycheck-mode-hook
     (lambda ()

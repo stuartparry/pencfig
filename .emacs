@@ -70,19 +70,21 @@
 ; Configuration
 ;;
 (require 'init-repos)
-(require 'init-theme)
 (require 'init-evil)
 (require 'init-helm)
 (require 'init-projectile)
 (require 'init-powerline)
 (require 'init-org)
-(require 'init-linum)
 (require 'init-yasnippet)
 (require 'init-autocomplete)
+(require 'init-auctex)
 (require 'init-cider)
-(require 'init-slime)    ; No Common Lisp here!
+(require 'init-slime)
+(require 'init-webmode)
 ;(require 'init-flycheck) ; Needs more work to make this reliable
 (require 'init-magit)
+(require 'init-theme)
+(require 'init-linum)
 (require 'init-filetypes)
 
 (provide 'emacs)

@@ -1,3 +1,11 @@
+;;;-*-Emacs-Lisp-*-
+
+;;; Commentary:
+;;;
+;;;
+
+;;; Code:
+
 (when (maybe-require-package 'evil-leader)
 
   ; Evil leader must be loaded before evil (as documented).
@@ -7,6 +15,7 @@
   (evil-leader/set-key
     "aa" 'align-regexp
     "a=" 'my-align-single-equal-als
+    "be"  'helm-mini             ;; Switch to another buffer
     "bw"  (lambda () (interactive) (evil-ex-call-command nil "bdelete" nil))
     "cb"  (lambda () (interactive) (load-theme 'bubbleberry t))
     "cn"  (lambda () (interactive) (load-theme 'noctilux t))

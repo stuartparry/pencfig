@@ -1,3 +1,11 @@
+;;;-*-Emacs-Lisp-*-
+
+;;; Commentary:
+;;;
+;;;
+
+;;; Code:
+
 ;; Filetypes
 ;;
 
@@ -14,14 +22,16 @@
   (lambda ()
     (define-key emacs-lisp-mode-map (kbd "<C-return>") 'eval-last-sexp)
     (turn-on-eldoc-mode)
-    (highlight-symbol-mode)))
+    (highlight-symbol-mode)
+    (helm-gtags-mode)))
 
 ;; Common Lisp
 (add-hook 'lisp-interaction-mode
   (lambda ()
     (define-key lisp-interaction-mode-map (kbd "<C-return>") 'eval-last-sexp)
     (turn-on-eldoc-mode)
-    (highlight-symbol-mode)))
+    (highlight-symbol-mode)
+    (helm-gtags-mode)))
 
 ;; Python
 (when (maybe-require-package 'python-mode)
@@ -29,7 +39,8 @@
   (add-hook 'python-mode-hook
     (lambda ()
       (helm-gtags-mode)
-      (flyspell-prog-mode))))
+      (flyspell-prog-mode)
+      (helm-gtags-mode))))
 
 ;; Clojure
 (when (maybe-require-package 'clojure-mode)

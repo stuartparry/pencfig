@@ -5,6 +5,7 @@
 ;;;
 
 ;;; Code
+
 (when (maybe-require-package 'yasnippet)
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"
                            "~/.emacs.d/yasnippets"))

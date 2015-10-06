@@ -1,3 +1,11 @@
+;;;-*-Emacs-Lisp-*-
+
+;;; Commentary:
+;;;
+;;;
+
+;;; Code:
+
 (when (maybe-require-package 'cider)
   (add-hook 'cider-mode-hook 
     (lambda ()

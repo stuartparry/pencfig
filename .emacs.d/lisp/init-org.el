@@ -1,3 +1,11 @@
+;;;-*-Emacs-Lisp-*-
+
+;;; Commentary:
+;;;
+;;;
+
+;;; Code:
+
 (when (and (maybe-require-package 'org)
            (maybe-require-package 'evil-leader))
 
