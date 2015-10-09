@@ -67,6 +67,8 @@
 ; Use hunspell for spellchecking
 (setq-default ispell-program-name "/usr/bin/hunspell")
 (setq-default ispell-dictionary "british") ; must set environment variable LANG to 'en_GB'
+; Set title of frame
+(setq frame-title-format "EVIL - %b")
 
 ; Configuration
 ;;
