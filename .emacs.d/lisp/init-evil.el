@@ -30,6 +30,10 @@
     "hm"  'helm-mini             ;; Switch to another buffer
     "hi"  'helm-imenu            ;; Jump to function in buffer
     "hx"  'helm-M-x
+    "ps"  'helm-projectile-switch-project
+    "pp"  'helm-projectile
+    "pf"  'helm-find-files
+    "st"  'toggle-case-fold-search
     "ts"  'delete-trailing-whitespace
     "tw"  'whitespace-mode       ;; Show invisible characters
     "ty"  'yank-to-x-clipboard))
@@ -61,29 +65,27 @@
   (setq-default evil-want-C-i-jump t)
   (setq-default evil-symbol-word-search t)
 
+  ;; Use evil-search
+  (setq-default evil-search-module 'evil-search)
+
+  ;; Set some keybindings in occur mode
   (evil-add-hjkl-bindings occur-mode-map 'emacs
     (kbd "/")       'evil-search-forward
     (kbd "n")       'evil-search-next
     (kbd "N")       'evil-search-previous
     (kbd "C-w C-w") 'other-window)
 
+  ;; Set some keybindings in org mode
   (evil-add-hjkl-bindings org-agenda-mode-map 'emacs
     "RET" 'org-agenda-switch-to)
-
+  
+  ;; Set some keybindings in isearch mode
+  (define-key isearch-mode-map (kbd "<down>") 'isearch-ring-advance)
+  (define-key isearch-mode-map (kbd "<up>") 'isearch-ring-retreat)
+  
   ;; Global bindings.
-  (define-key evil-normal-state-map (kbd "C-S-p") 'helm-projectile-switch-project)
-  (define-key evil-normal-state-map (kbd "C-p")  'helm-projectile)
-  (define-key evil-normal-state-map (kbd "-")     'helm-find-files)
-  (define-key evil-normal-state-map
-    (kbd "C-k")
-    (lambda ()
-      (interactive)
-      (evil-scroll-up nil)))
-  (define-key evil-normal-state-map
-    (kbd "C-j")
-    (lambda ()
-      (interactive)
-      (evil-scroll-down nil)))
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-scroll-up)
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-scroll-down)
 
   (defun minibuffer-keyboard-quit ()
     "Abort recursive edit.

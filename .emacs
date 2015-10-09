@@ -35,8 +35,7 @@
 (show-paren-mode 1)
 ; Text wraps at word boundaries and curly arrows are used to indicate continuation
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-; Turn off build-in version control support
-(eval-after-load "vc" '(setq vc-handled-backends nil))
+; Version control support
 (setq vc-follow-symlinks t)
 ; Turn off visible bell
 (setq visible-bell nil)
@@ -63,6 +62,8 @@
       kept-new-versoins 6
       kept-old-versions 2
       version-control2)
+; Default to case-sensitivity
+(setq-default case-fold-search t)
 ; Use hunspell for spellchecking
 (setq-default ispell-program-name "/usr/bin/hunspell")
 (setq-default ispell-dictionary "british") ; must set environment variable LANG to 'en_GB'
