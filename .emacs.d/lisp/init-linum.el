@@ -35,10 +35,14 @@
   (let ((my-linum-current-line-number (line-number-at-pos))) ad-do-it))
 
 (ad-activate 'linum-update)
+(defun set-linum-format ()
+  (setq linum-format 'my-linum-relative-line-numbers))
+  
+(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
 (add-hook 'linum-before-numbering-hook
           (lambda ()
-            (my-linum-get-format-string)
-            (setq linum-format 'my-linum-relative-line-numbers)))
+            (set-linum-format)
+            (remove-hook 'linum-before-numbering-hook 'set-linum-format)))
   
 ; Set up relative line numbering
 (global-linum-mode t)

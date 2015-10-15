@@ -38,7 +38,6 @@
   (autoload 'python-mode "python-mode" "Python Mode." t)
   (add-hook 'python-mode-hook
     (lambda ()
-      (helm-gtags-mode)
       (flyspell-prog-mode)
       (helm-gtags-mode))))
 
