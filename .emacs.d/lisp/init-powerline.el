@@ -1,13 +1,17 @@
 ;;;-*-Emacs-Lisp-*-
 
-;;; Commentary:
+;;; Commentary
 ;;;
 ;;;
 
-;;; Code:
+;;; Code;
 
-(when (and (maybe-require-package 'powerline)
-           (maybe-require-package 'powerline-evil))
-  (powerline-default-theme))
+(use-package powerline
+  :ensure t
+  :config
+  (use-package powerline-evil
+    :ensure t
+    :config
+    (powerline-center-evil-theme)))
 
 (provide 'init-powerline)
