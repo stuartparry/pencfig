@@ -23,14 +23,14 @@
 ;; Local repos as backup (via git from https://github.com/syl20bnr/spacemacs-elpa-mirror.git) if internet
 ;; connection is not available
 ;;;(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("gnu" . "~/.emacs.d/mirror-elpa/gnu/"))
-(add-to-list 'package-archives '("melpa" . "~/.emacs.d/mirror-elpa/melpa/"))
-(add-to-list 'package-archives '("melpa-stable" . "~/.emacs.d/mirror-elpa/melpa-stable/"))
-(add-to-list 'package-archives '("org" . "~/.emacs.d/mirror-elpa/org/"))
+;;(add-to-list 'package-archives '("gnu" . "~/.emacs.d/mirror-elpa/gnu/"))
+;;(add-to-list 'package-archives '("melpa" . "~/.emacs.d/mirror-elpa/melpa/"))
+;;(add-to-list 'package-archives '("melpa-stable" . "~/.emacs.d/mirror-elpa/melpa-stable/"))
+;;(add-to-list 'package-archives '("org" . "~/.emacs.d/mirror-elpa/org/"))
 ;; Standard package repositories
 ;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
-;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 ;
 ;;;(add-to-list 'package-archives '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 ;;;(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))

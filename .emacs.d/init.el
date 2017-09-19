@@ -161,6 +161,8 @@
 (require 'init-theme)
 (require 'init-powerline)
 (require 'init-yasnippet)
+(require 'init-cider)
+(require 'init-haskell)
 (require 'init-jedi)
 (require 'init-org)
 ;;;(require 'init-flycheck) ;; Needs work to get this working!

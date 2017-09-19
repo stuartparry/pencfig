@@ -97,7 +97,7 @@
     ; general leader bindings
     "xl"  'linum-relative-toggle
     "xr"  (lambda () (interactive) (font-lock-fontify-buffer) (redraw-display))
-    "xt"  'toggle-truncate-line-mode
+    "xt"  'toggle-truncate-lines
     "xv"  'global-visual-line-mode
     "xw"  'whitespace-mode
     "xm"  'minimap-mode
