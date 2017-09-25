@@ -1,6 +1,4 @@
-!/bin/bash
-
-echo $1 > /home/stuart/which_de
+#!/bin/bash
 
 ### Set directory for extra fonts to be used by X ###
 xset +fp /usr/share/fonts/local
@@ -9,52 +7,36 @@ xset fp rehash
 ### Turn off the insanely annoying system beep
 xset -b
 
+export ROTATE=False
+
 ### DE specific setup
-if [ "$1" == "openbox-session" ]; then
-  export BROWSER=firefox
-  export DE=openbox
-elif [ "$1" == "dwm" ]; then
-  export DE=dwm
-
-  while true; do
-    # Power/Battery
-    if [ "$(cat /sys/class/power_supply/ADP1/online )" -eq "1" ]; then
-      DWM_PWRSRC="AC"
-      DWM_BATTERY="$(( `cat /sys/class/power_supply/BAT1/charge_now` * 100 / `cat /sys/class/power_supply/BAT1/charge_full` ))%";
-      DWM_RENEW_INT=3;
-    else
-      DWM_PWRSRC="BAT"
-      DWM_BATTERY="$(( `cat /sys/class/power_supply/BAT1/charge_now` * 100 / `cat /sys/class/power_supply/BAT1/charge_full` ))%";
-      DWM_RENEW_INT=30;
-    fi;
-
-    # WiFi
-    if [ "$( cat /sys/class/net/wlan0/operstate )" = "up" ]; then
-      DWM_ESSID=$( /sbin/iwgetid -r );
-    else
-      DWM_ESSID="OFF";
-    fi;
-
-    # Volume
-    DWM_VOLUME=$( amixer -c0 sget Master | awk -vORS=' ' '/Mono:/ {print($6$4)}' );
-
-    # Date/Time
-    DWM_CLOCK=$( date '+%a %e %b %Y | %k:%M' );
-
-    # Output
-    DWM_STATUS="Wifi: [$DWM_ESSID] | Power: [$DWM_PWRSRC] [$DWM_BATTERY] | Vol: $DWM_VOLUME | $DWM_CLOCK";
-    xsetroot -name "$DWM_STATUS";
-    sleep $DWM_RENEW_INT;
-
-  done &
-
-elif [ "$1" == "qtile" ]; then
+if [ "$1" == "qtile" ]; then
   export DE=qtile
+elif [ "$1" == "stumpwm" ]; then
+  export ROTATE=wmrotate_stumpwm
+elif [ "$1" == "xmonad" ]; then
+  export ROTATE=wmrotate_xmonad
 fi
 
 ### General startup config
 xbacklight -set 40 &
+amixer -q -c 0 sset Master 85% &
+amixer -q -c 0 sset Headphone 90% &
+amixer -q -c 0 sset Speaker 90% &
 nitrogen --restore &
-
-exec $1
 #udiskie &...
+
+# Start WM or WM rotater script
+if [ "$ROTATE" == "wmrotate_xmonad" ]; then
+  /home/stuart/bin/wmrotate_xmonad & wmpid=$! 
+  # Close X when wmrotate comes down
+  wait $wmpid
+elif [ "$ROTATE" == "wmrotate_stumpwm" ]; then
+  /home/stuart/bin/wmrotate_stumpwm & wmpid=$! 
+  # Close X when wmrotate comes down
+  wait $wmpid
+else
+  exec $1
+fi 
+
+# Tidy up the cruft

@@ -9,7 +9,7 @@
  '(linum-format "%3i")
  '(package-selected-packages
    (quote
-    (haskell-mode helm-cider helm-cider-mode cider jknav folding bpr helm-projectile helm-swoop helm-ls-git helm org-bullets org-evil jedi yasnippet powerline-evil powerline quasi-monochrome-theme noctilux-theme monochrome-theme firebelly-theme busybee-theme bubbleberry-theme abyss-theme evil-search-highlight-persist evil-mc evil-nerd-commenter evil-indent-textobject evil-visualstar evil-matchit evil-numbers evil-vimish-fold evil-surround evil-leader evil vdiff magit minimap fill-column-indicator linum-relative auto-complete use-package)))
+    (auctex haskell-mode helm-cider helm-cider-mode cider jknav folding bpr helm-projectile helm-swoop helm-ls-git helm org-bullets org-evil jedi yasnippet powerline-evil powerline quasi-monochrome-theme noctilux-theme monochrome-theme firebelly-theme busybee-theme bubbleberry-theme abyss-theme evil-search-highlight-persist evil-mc evil-nerd-commenter evil-indent-textobject evil-visualstar evil-matchit evil-numbers evil-vimish-fold evil-surround evil-leader evil vdiff magit minimap fill-column-indicator linum-relative auto-complete use-package)))
  '(powerline-color1 "#3d3d68")
  '(powerline-color2 "#292945"))
 (custom-set-faces

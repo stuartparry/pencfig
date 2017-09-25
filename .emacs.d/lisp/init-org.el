@@ -9,6 +9,7 @@
 (use-package org
   :ensure t
   :commands (org-capture)
+  :defer
   :init
   (setq org-agenda-text-search-extra-files '(agenda-arhives))
   (setq org-agenda-files (list "~/.orgmode/"))

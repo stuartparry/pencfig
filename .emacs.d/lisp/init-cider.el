@@ -8,6 +8,7 @@
 (use-package cider
   :ensure t
   :pin melpa-stable
+  :defer
   
   :config
   ;
