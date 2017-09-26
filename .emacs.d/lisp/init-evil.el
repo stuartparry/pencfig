@@ -4,7 +4,6 @@
 ;;;
 
 ;;; Code:
-
 (defun config-evil-leader ()
   "Configure evil leader mode"
   (define-key evil-motion-state-map "," 'evil-execute-in-emacs-state)
@@ -36,7 +35,7 @@
     "ep"  'eval-print-last-sexp
     "er"  'eval-region
     "es"  'eval-last-sexp
-    ; fill columnt indicator leader binding
+    ; fill column indicator leader binding
     "fc"  'fci-mode
     ; flycheck leader bindings
 ;;;    "fc"  'flycheck-mode
@@ -50,13 +49,6 @@
     "hl"  'helm-buffers-list
     "hm"  'helm-mini
     "hx"  'helm-M-x
-    ; mc leader bindings
-    "kk"  'evil-mc-mode
-    "kh"  'evil-mc-make-cursor-here
-    "km"  'evil-mc-make-all-cursors
-    "kp"  'evil-mc-pause-cursors
-    "kr"  'evil-mc-resume-cursors
-    "ku"  'evil-mc-undo-all-cursors
     ; magit leader bindings
     "m"   'global-magit-file-mode
     ; orgmode leader bindings
@@ -103,7 +95,8 @@
     "xm"  'minimap-mode
     "xo"  'occur
     "xp"  'multi-occur
-    "xy"  'yank-to-x-clipboard
+    ; whitespace
+    "ww"  'whitespace-mode
     ; yasnippet leader bindings
     "yy"  'yas-global-mode
     ; folding leader bindings
@@ -191,12 +184,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     :config
     (global-evil-surround-mode))
 
-  ; Setup vim style folds
-  (use-package evil-vimish-fold
-    :ensure t
-    :config
-    (evil-vimish-fold-mode 1))
-
   ; Setup a vim style inc/dec numbers
   (use-package evil-numbers
     :ensure t
@@ -221,11 +208,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   (use-package evil-nerd-commenter
     :ensure t)
-
-  (use-package evil-mc
-    :ensure t
-    :config
-    (evil-mc-mode 1))
 
   (use-package highlight)
   (use-package evil-search-highlight-persist
