@@ -49,6 +49,7 @@
   (folding-add-to-marks-list 'vhdl-mode              "#{{{"  "#}}}" nil t)
   (folding-add-to-marks-list 'verilog-mode           "//{{{"  "//}}}" nil t)
   (folding-add-to-marks-list 'vlog-mode              "//{{{"  "//}}}" nil t)
+  (folding-add-to-marks-list 'org-mode               "#{{{"  "#}}}" nil t)
 
 
   (define-key evil-normal-state-map "za" 'folding-toggle-show-hide)

@@ -14,11 +14,14 @@
   (setq org-agenda-text-search-extra-files '(agenda-arhives))
   (setq org-agenda-files (list "~/.orgmode/"))
 
+  (setq org-log-done 'time)
+  (setq org-log-done 'note)
+
   :config
-  (add-hook 'org-mode-hohok
+  (add-hook 'org-mode-hook
             (lambda ()
               (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
-              (evil-defiRRRRRy 'normal org-mode-map (kbd "C-\\") 'org-insert-heading)
+              (evil-define-key 'normal org-mode-map (kbd "C-\\") 'org-insert-heading)
               (evil-define-key 'insert org-mode-map (kbd "C-\\") 'org-insert-heading)
               (auto-fill-mode t))))
 
