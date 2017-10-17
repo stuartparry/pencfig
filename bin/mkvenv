@@ -1,0 +1,78 @@
+#!/usr/local/bin/bash
+#
+
+#usage() { echo "$0 usage:" && grep "[[:space:]].)\ #" $0 | sed 's/#//' | sed -r 's/([a-z])\)/-\1/'; exit 0; }
+usage () {
+    cat << EOF
+
+    Usage: $0 [options] TARGET_DIRECTORY VENV_NAME
+
+    This script creates a new python virtual environment at VENV_PATH,
+    and an associated symbolic link in ~/virtualenvs to enable the use
+    of vex for accessing/enabling virtual environments.
+
+    Options: 
+
+    -h          Display help message
+
+    Arguments:
+
+    TARGET_DIRECTORY   Path of target to be created
+    VENV_NAME          Path of virtual environment t
+
+EOF
+}
+
+while getopts ":h" arg; do
+   case $arg in
+       *) # Display help due to invalid options
+       echo "ERROR - Unexpected/invalid option supplied: $OPTARG"
+       usage
+       exit 0
+       ;;
+       h) # Display help
+       usage
+       exit 0
+       ;;
+   esac
+done
+
+shift $((OPTIND - 1))
+
+# Construct path to the new virtual environment
+venv_dir=$1
+venv_name=$2
+venv=${venv_dir}/${venv_name}
+
+# Check the target directory currently exists
+if [ -d "$venv_dir" ]; then
+    # It does, so check if there is an existing sub-directory named
+    # the same as VENV_NAME
+    echo "Target directory '$venv_dir' exists, yay!!"
+    if [ -d "$venv" ]; then
+        # Cannot create new virtual envrironment due to existing
+        # directory with the same name. Warn the user
+        echo "ERROR: Cannot create virtual environment"
+        echo "       $venv_name already exists at '$venv_dir', boo!!"
+    else
+        # No existing directory, all is well
+        echo "There is no existing sub-directory '$venv_name', yay!!"
+        echo "Creating the new vitual environment ..."
+
+        venv_abspath=$(readlink -f $venv)
+        if (( $? == 0 )); then 
+ 
+            # Create the virtual envirinment
+            virtualenv $venv
+            echo "Created ${venv_abspath}"
+
+            # Create a symbolic link in ~/.virtualenvs to enable use of vex
+            # to control/enable virtual environments
+            ln -s $venv_abspath ~/.virtualenvs/${venv_name}
+            echo "Created ~/.virtualenvs/${venv_name} sybmolic link"
+            ls -la ~/.virtualenvs/${venv_name}
+        fi
+    fi
+else
+    echo "ERROR: Target directory '$venv_dir' does not exist, boo!!"
+fi

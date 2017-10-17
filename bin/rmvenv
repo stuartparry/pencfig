@@ -1,0 +1,60 @@
+#!/usr/local/bin/bash
+#
+
+#usage() { echo "$0 usage:" && grep "[[:space:]].)\ #" $0 | sed 's/#//' | sed -r 's/([a-z])\)/-\1/'; exit 0; }
+usage () {
+    cat << EOF
+
+    Usage: $0 [options] TARGET_DIRECTORY VENV_NAME
+
+    This script removes a python virtual environment at VENV_PATH,
+    together with the associated symbolic link in ~/virtualenvs to
+    enable the use of vex for accessing/enabling virtual environments.
+
+    Options: 
+
+    -h          Display help message
+
+    Arguments:
+
+    VENV_NAME          Path of virtual environment t
+
+EOF
+}
+
+while getopts ":h" arg; do
+   case $arg in
+       *) # Display help due to invalid options
+       echo "ERROR - Unexpected/invalid option supplied: $OPTARG"
+       usage
+       exit 0
+       ;;
+       h) # Display help
+       usage
+       exit 0
+       ;;
+   esac
+done
+
+shift $((OPTIND - 1))
+
+# Construct path to the new virtual environment
+venv_name=$1
+
+# Check the virtual environment is registerd in ~/.virtualenvs
+if [ -e ~/.virtualenvs/${venv_name} ]; then
+    # It is, so check if there is an existing virtualenv
+    venv_path=$(readlink -f ~/.virtualenvs/${venv_name})
+    if (( $? == 0 )); then
+        # It exists. so lets delete it
+        rm -rf $venv_path
+        echo "Deleted virtual environment: $venv_path"
+        # Also get rid of the .virtualenv/ link
+        rm -rf ~/.virtualenvs/${venv_name}
+        echo "Deleted  ~/.virtualenv/${venv_name}"
+    else
+        echo "ERROR: Virtual environment does not exist, boo!!"
+    fi
+else
+    echo "ERROR: Virtual environment not registered, boo!!"
+fi
