@@ -1,9 +1,0 @@
-#!/bin/sh
-
-while true
-do
-  export DE=xmonad
-  xmonad
-  export DE=stumpwm
-  stumpwm
-done
